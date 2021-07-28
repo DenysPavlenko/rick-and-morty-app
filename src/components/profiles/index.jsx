@@ -18,6 +18,7 @@ import styles from './index.module.sass';
 const Profiles = ({ fetchProfilesRequest, profiles }) => {
   const [page, setPage] = React.useState(1);
   const [pages, setPages] = React.useState(0);
+  const profilesEl = React.useRef(null);
 
   const history = useHistory();
   const match = useRouteMatch();
@@ -34,6 +35,13 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
 
   React.useEffect(() => {
     fetchProfilesRequest(page);
+    // Scroll to top on page change
+    if (!profiles.loading) {
+      window.scrollTo({
+        top: profilesEl.current.offsetTop,
+        behavior: 'smooth',
+      });
+    }
   }, [page]);
 
   React.useEffect(() => {
@@ -51,7 +59,7 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
   }
 
   return (
-    <div className={styles.profiles}>
+    <div className={styles.profiles} ref={profilesEl}>
       <div className={styles['profiles-row']}>
         {profiles.loading && (
           <>
