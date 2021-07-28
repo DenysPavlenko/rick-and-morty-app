@@ -11,11 +11,13 @@ const Typography = ({
   align,
   variant,
   className,
+  altFont,
   ...otherProps
 }) => {
   const classes = classNames({
     [variant]: variant,
     [`typography-${align}`]: align,
+    'font-creepster': altFont,
     [className]: className,
   });
 
@@ -33,6 +35,7 @@ Typography.defaultProps = {
   variant: '',
   align: '',
   className: '',
+  altFont: false,
 };
 
 Typography.propTypes = {
@@ -41,6 +44,7 @@ Typography.propTypes = {
   align: PropTypes.string,
   variant: PropTypes.string,
   className: PropTypes.string,
+  altFont: PropTypes.bool,
 };
 
 export default Typography;

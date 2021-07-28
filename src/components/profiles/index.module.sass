@@ -1,0 +1,14 @@
+@import ~styles/abstract/variables
+@import ~styles/abstract/grid
+@import ~styles/abstract/utils
+
+.profiles
+  +container($cnt-xxl)
+  padding-top: rem(80px)
+  &-row
+    +row()
+  &-col
+    +col(6)
+    padding-bottom: $gutter
+    +media-max($bp-md)
+      +col(12)
