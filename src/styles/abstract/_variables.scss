@@ -41,16 +41,20 @@ $breakpoints: (
   $bp-xxl: 'xxl',
 );
 
+// Colors
+$c-white: #ffffff;
+$c-black: #212121;
+
 // Themes
 $theme: (
-  base: #ffffff,
-  theme: #ffffff,
-  text: #212121,
-  text-contrast: #ffffff,
+  base: $c-white,
+  theme: $c-white,
+  text: $c-black,
+  text-contrast: $c-white,
 );
 $theme-dark: (
-  base: #212121,
+  base: $c-black,
   theme: #424242,
-  text: #ffffff,
-  text-contrast: #212121,
+  text: $c-white,
+  text-contrast: $c-black,
 );

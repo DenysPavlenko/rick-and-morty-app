@@ -1,8 +1,9 @@
 import React from 'react';
+import Hero from 'components/hero';
 
 const App = () => (
   <div>
-    <h1>App</h1>
+    <Hero />
   </div>
 );
 
