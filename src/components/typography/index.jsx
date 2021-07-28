@@ -5,30 +5,27 @@ import classNames from 'classnames';
 // Styles
 import './index.sass';
 
-const Typography = ({
-  children,
-  component,
-  align,
-  variant,
-  className,
-  altFont,
-  ...otherProps
-}) => {
-  const classes = classNames({
-    [variant]: variant,
-    [`typography-${align}`]: align,
-    'font-creepster': altFont,
-    [className]: className,
-  });
+const Typography = React.forwardRef(
+  (
+    { children, component, align, variant, className, altFont, ...otherProps },
+    ref
+  ) => {
+    const classes = classNames({
+      [variant]: variant,
+      [`typography-${align}`]: align,
+      'font-creepster': altFont,
+      [className]: className,
+    });
 
-  const Tag = component;
+    const Tag = component;
 
-  return (
-    <Tag className={classes || null} {...otherProps}>
-      {children}
-    </Tag>
-  );
-};
+    return (
+      <Tag className={classes || null} {...otherProps} ref={ref}>
+        {children}
+      </Tag>
+    );
+  }
+);
 
 Typography.defaultProps = {
   component: 'p',
