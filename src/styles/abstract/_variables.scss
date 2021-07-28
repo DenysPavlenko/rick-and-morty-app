@@ -46,12 +46,15 @@ $breakpoints: (
 // Colors
 $c-white: #ffffff;
 $c-black: #212121;
-$c-primary: #65b95b;
+$c-primary: #30cb00;
+$c-primary-dark: #0f9200;
+
 // Themes
 $theme: (
   base: $c-white,
   theme: $c-white,
   primary: $c-primary,
+  primary-dark: $c-primary-dark,
   text: $c-black,
   text-contrast: $c-white,
 );
