@@ -10,16 +10,22 @@
     &:not(:last-child)
       margin-right: 5px
   &-button
-    width: 35px
-    height: 35px
-    border-radius: 50%
-    font-size: rem(13px)
+    width: 40px
+    height: 40px
+    border-radius: $br-primary
     display: flex
     justify-content: center
     align-items: center
     user-select: none
-    font-size: 14px
+    font-size: 16px
     color: getColor('text')
+    &-disabled
+      pointer-events: none
+      .pagination-chevron
+        opacity: 0.2
+    &-active
+      background-color: getColor('primary')
+      color: getColor('text-contrast')
     +media-max($bp-xs)
       width: 30px
       height: 30px
@@ -28,11 +34,4 @@
       height: 26px
       font-size: 12px
   &-chevron
-    font-size: rem(10px)
-    width: 10px
-.disabled
-  pointer-events: none
-  color: rgba(#ccc, 0.7)
-.active
-  background-color: getColor('primary')
-  color: getColor('text-contrast')
+    width: 1rem

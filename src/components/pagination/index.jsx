@@ -55,7 +55,7 @@ const Pagination = ({ className, pages, page, setPage }) => {
             type="button"
             className={cn(
               styles['pagination-button'],
-              page === 1 && styles.disabled
+              page === 1 && styles['pagination-button-disabled']
             )}
             onClick={() => handleArrowClick(-1, 1)}
             disabled={page === 1}
@@ -69,7 +69,10 @@ const Pagination = ({ className, pages, page, setPage }) => {
             {typeof p === 'string' ? (
               <button
                 type="button"
-                className={cn(styles['pagination-button'], styles.disabled)}
+                className={cn(
+                  styles['pagination-button'],
+                  styles['pagination-button-disabled']
+                )}
                 disabled
               >
                 {p}
@@ -79,7 +82,7 @@ const Pagination = ({ className, pages, page, setPage }) => {
                 type="button"
                 className={cn(
                   styles['pagination-button'],
-                  page === p && styles.active
+                  page === p && styles['pagination-button-active']
                 )}
                 disabled={page === p && styles.active}
                 onClick={() => changePage(p)}
@@ -94,7 +97,7 @@ const Pagination = ({ className, pages, page, setPage }) => {
             type="button"
             className={cn(
               styles['pagination-button'],
-              page === pages && styles.disabled
+              page === pages && styles['pagination-button-disabled']
             )}
             disabled={page === pages}
             onClick={() => handleArrowClick(1, pages)}
