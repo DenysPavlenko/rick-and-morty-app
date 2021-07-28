@@ -81,6 +81,7 @@ const Pagination = ({ className, pages, page, setPage }) => {
                   styles['pagination-button'],
                   page === p && styles.active
                 )}
+                disabled={page === p && styles.active}
                 onClick={() => changePage(p)}
               >
                 {p}
@@ -93,10 +94,10 @@ const Pagination = ({ className, pages, page, setPage }) => {
             type="button"
             className={cn(
               styles['pagination-button'],
-              page === 1 && styles.disabled
+              page === pages && styles.disabled
             )}
-            onClick={() => handleArrowClick(1, pages)}
             disabled={page === pages}
+            onClick={() => handleArrowClick(1, pages)}
           >
             <ChevronRight className={styles['pagination-chevron']} />
           </button>

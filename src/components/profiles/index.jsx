@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
+import { Redirect, useHistory, useRouteMatch } from 'react-router-dom';
 // Redux
 import { fetchProfilesRequest } from 'redux/profiles/actions';
 import selectProfiles from 'redux/profiles/selectors';
@@ -15,13 +16,34 @@ import styles from './index.module.sass';
 
 const Profiles = ({ fetchProfilesRequest, profiles }) => {
   const [page, setPage] = React.useState(1);
+  const [pages, setPages] = React.useState(0);
+
+  const history = useHistory();
+  const match = useRouteMatch();
+
+  // Set page number from the match
+  React.useEffect(() => {
+    const id = +match.params.id;
+    if (id && typeof id === 'number') {
+      setPage(id);
+    } else {
+      history.push('/404');
+    }
+  }, []);
 
   React.useEffect(() => {
     fetchProfilesRequest(page);
   }, [page]);
 
-  if (profiles.error) {
-    return <div className={styles.profiles}>profiles.error</div>;
+  React.useEffect(() => {
+    if (profiles.data) {
+      setPages(profiles.data.pages);
+    }
+  }, [profiles]);
+
+  if (profiles.error && profiles.error === '404') {
+    return <Redirect to="/404" />;
+    // return <div className={styles.profiles}>{profiles.error}</div>;
   }
 
   return (
@@ -39,7 +61,7 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
         )}
         {profiles.data && (
           <>
-            {profiles.data.map((profile) => (
+            {profiles.data.profiles.map((profile) => (
               <div key={profile.id} className={styles['profiles-col']}>
                 <Profile
                   image={profile.image}
@@ -57,7 +79,14 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
         )}
       </div>
       <div className={styles['profiles-pagination']}>
-        <Pagination page={page} pages={10} setPage={setPage} />
+        <Pagination
+          page={page}
+          pages={pages}
+          setPage={(p) => {
+            history.push(`/profiles/${p}`);
+            setPage(p);
+          }}
+        />
       </div>
     </div>
   );
@@ -74,7 +103,7 @@ const mapDispatchToProps = {
 Profiles.propTypes = {
   fetchProfilesRequest: PropTypes.func.isRequired,
   profiles: PropTypes.shape({
-    data: PropTypes.array,
+    data: PropTypes.object,
     loading: PropTypes.bool,
     error: PropTypes.string,
   }).isRequired,
