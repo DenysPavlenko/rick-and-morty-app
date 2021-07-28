@@ -1,0 +1,9 @@
+// Pulse animation
+@keyframes pulse
+  25%
+    opacity: 0.5
+  75%
+    opacity:  1
+
+@mixin pulse-animation()
+  animation: pulse 2s linear infinite

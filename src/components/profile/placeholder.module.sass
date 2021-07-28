@@ -1,0 +1,64 @@
+@import ~styles/abstract/variables
+@import ~styles/abstract/utils
+@import ~styles/abstract/animations
+
+.profile
+  display: flex
+  height: 100%
+  flex-wrap: wrap
+  +pulse-animation()
+  &-image
+    width: 200px
+    height: 100%
+    min-height: 200px
+    background-color: #ccc
+    +media-max($bp-sm)
+      width: 100%
+      min-height: auto
+      height: 300px
+    +media-max($bp-xs)
+      height: 280px
+  &-info
+    display: flex
+    flex-direction: column
+    flex: 1
+    padding: 15px
+    z-index: 1
+    position: relative
+    &:after
+      position: absolute
+      content: ''
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      background-image: url('~assets/images/painting-bg.png')
+      background-position: top right
+      background-size: cover
+      background-repeat: no-repeat
+      z-index: -1
+      opacity: 0.3
+    +media-max($bp-sm)
+      min-width: 100%
+  &-name
+    margin-bottom: 12px
+    height: 25px
+    max-width: 150px
+    background-color: #ccc
+  &-center
+    margin-top: 15px
+    width: 100%
+  &-with-icon
+    max-width: 170px
+    height: 15px
+    background-color: #ccc
+    margin-bottom: 10px
+    &:first-child
+      max-width: 115px
+    &:last-child
+      max-width: 250px
+  &-episode
+    margin-top: auto
+    max-width: 180px
+    height: 15px
+    background-color: #ccc

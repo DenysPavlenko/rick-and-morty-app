@@ -8,6 +8,7 @@ import { fetchProfilesRequest } from 'redux/profiles/actions';
 import selectProfiles from 'redux/profiles/selectors';
 // Components
 import Profile from 'components/profile';
+import ProfilePlaceholder from 'components/profile/placeholder';
 // Styles
 import styles from './index.module.sass';
 
@@ -23,7 +24,15 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
   return (
     <div className={styles.profiles}>
       <div className={styles['profiles-row']}>
-        {profiles.loading && <p>loading</p>}
+        {profiles.loading && (
+          <>
+            {[...Array(20)].map((_) => (
+              <div key={_} className={styles['profiles-col']}>
+                <ProfilePlaceholder />
+              </div>
+            ))}
+          </>
+        )}
         {profiles.data && (
           <>
             {profiles.data.map((profile) => (

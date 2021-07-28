@@ -38,9 +38,7 @@ const Profile = ({
       <div
         className={styles['profile-image']}
         style={{ backgroundImage: `url(${image})` }}
-      >
-        {/* <img src={image} alt="avatar" /> */}
-      </div>
+      />
       <div className={styles['profile-info']}>
         <Typography component="h4" className={styles['profile-name']}>
           {name}
