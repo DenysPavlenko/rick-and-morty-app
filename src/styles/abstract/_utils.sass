@@ -1,0 +1,21 @@
+// Px to rem
+@function rem($size)
+  $remSize: $size / $base-font-size
+  @return #{$remSize}rem
+
+// Get css color variable
+@function getColor($name)
+  @return var(--c-#{$name})
+
+// Media queries
+@mixin media-min($size)
+  @media (min-width: $size + 1)
+    @content
+
+@mixin media-max($size)
+  @media (max-width: $size)
+    @content
+
+@mixin media-min-max($min, $max)
+  @media (min-width: $min) and (max-width: $max)
+    @content
