@@ -11,6 +11,7 @@ import selectProfiles from 'redux/profiles/selectors';
 import Profile from 'components/profile';
 import ProfilePlaceholder from 'components/profile/placeholder';
 import Pagination from 'components/pagination';
+import ErrorIndicator from 'components/error-indicator';
 // Styles
 import styles from './index.module.sass';
 
@@ -41,9 +42,12 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
     }
   }, [profiles]);
 
-  if (profiles.error && profiles.error === '404') {
-    return <Redirect to="/404" />;
-    // return <div className={styles.profiles}>{profiles.error}</div>;
+  // Handle errors
+  if (profiles.error) {
+    if (profiles.error === '404') {
+      return <Redirect to="/404" />;
+    }
+    return <ErrorIndicator retry={() => fetchProfilesRequest(page)} />;
   }
 
   return (
@@ -103,7 +107,10 @@ const mapDispatchToProps = {
 Profiles.propTypes = {
   fetchProfilesRequest: PropTypes.func.isRequired,
   profiles: PropTypes.shape({
-    data: PropTypes.object,
+    data: PropTypes.shape({
+      pages: PropTypes.number,
+      profiles: PropTypes.array,
+    }),
     loading: PropTypes.bool,
     error: PropTypes.string,
   }).isRequired,
