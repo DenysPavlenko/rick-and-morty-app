@@ -1,7 +1,7 @@
 import ProfilesTypes from './types';
 
 const INITIAL_STATE = {
-  loading: false,
+  loading: true,
   data: null,
   error: null,
 };
