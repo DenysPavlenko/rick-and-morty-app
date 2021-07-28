@@ -21,6 +21,7 @@ $bp-lg: 991px;
 $bp-md: 767px;
 $bp-sm: 575px;
 $bp-xs: 460px;
+$bp-xxs: 360px;
 
 // Containers Map
 $containers: (
@@ -33,6 +34,7 @@ $containers: (
 
 // Breakpoints Map
 $breakpoints: (
+  $bp-xxs: 'xxs',
   $bp-xs: 'xs',
   $bp-sm: 'sm',
   $bp-md: 'md',
@@ -44,11 +46,12 @@ $breakpoints: (
 // Colors
 $c-white: #ffffff;
 $c-black: #212121;
-
+$c-primary: #65b95b;
 // Themes
 $theme: (
   base: $c-white,
   theme: $c-white,
+  primary: $c-primary,
   text: $c-black,
   text-contrast: $c-white,
 );

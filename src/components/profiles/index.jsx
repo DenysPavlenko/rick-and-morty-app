@@ -9,6 +9,7 @@ import selectProfiles from 'redux/profiles/selectors';
 // Components
 import Profile from 'components/profile';
 import ProfilePlaceholder from 'components/profile/placeholder';
+import Pagination from 'components/pagination';
 // Styles
 import styles from './index.module.sass';
 
@@ -55,9 +56,9 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
           </>
         )}
       </div>
-      <button type="button" onClick={setPage}>
-        Page 2
-      </button>
+      <div className={styles['profiles-pagination']}>
+        <Pagination page={page} pages={10} setPage={setPage} />
+      </div>
     </div>
   );
 };

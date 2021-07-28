@@ -1,0 +1,38 @@
+@import ~styles/abstract/variables
+@import ~styles/abstract/utils
+
+.pagination
+  &-list
+    display: flex
+    flex-wrap: wrap
+    align-self: center
+  &-item
+    &:not(:last-child)
+      margin-right: 5px
+  &-button
+    width: 35px
+    height: 35px
+    border-radius: 50%
+    font-size: rem(13px)
+    display: flex
+    justify-content: center
+    align-items: center
+    user-select: none
+    font-size: 14px
+    color: getColor('text')
+    +media-max($bp-xs)
+      width: 30px
+      height: 30px
+    +media-max($bp-xxs)
+      width: 26px
+      height: 26px
+      font-size: 12px
+  &-chevron
+    font-size: rem(10px)
+    width: 10px
+.disabled
+  pointer-events: none
+  color: rgba(#ccc, 0.7)
+.active
+  background-color: getColor('primary')
+  color: getColor('text-contrast')

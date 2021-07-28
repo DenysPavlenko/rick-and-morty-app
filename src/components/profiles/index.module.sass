@@ -5,6 +5,7 @@
 .profiles
   +container($cnt-xxl)
   padding-top: rem(80px)
+  padding-bottom: rem(80px)
   &-row
     +row()
   &-col
@@ -12,3 +13,6 @@
     padding-bottom: $gutter
     +media-max($bp-lg)
       +col(12)
+  &-pagination
+    display: flex
+    justify-content: center
