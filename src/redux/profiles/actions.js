@@ -1,7 +1,8 @@
 import ProfilesTypes from './types';
 
-export const fetchProfilesRequest = () => ({
+export const fetchProfilesRequest = (page) => ({
   type: ProfilesTypes.FETCH_PROFILES_REQUEST,
+  payload: page,
 });
 export const fetchProfilesSuccess = (data) => ({
   type: ProfilesTypes.FETCH_PROFILES_SUCCESS,

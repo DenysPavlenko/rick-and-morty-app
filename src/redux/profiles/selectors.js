@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 
-const profilesSelector = (state) => state.profiles;
+const profilesPageSelector = (state) => state.profiles;
 
-const selectProfiles = createSelector(
-  [profilesSelector],
+const selectProfilesPage = createSelector(
+  [profilesPageSelector],
   (profiles) => profiles
 );
 
-export default selectProfiles;
+export default selectProfilesPage;

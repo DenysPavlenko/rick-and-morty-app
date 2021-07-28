@@ -13,9 +13,11 @@ import ProfilePlaceholder from 'components/profile/placeholder';
 import styles from './index.module.sass';
 
 const Profiles = ({ fetchProfilesRequest, profiles }) => {
+  const [page, setPage] = React.useState(1);
+
   React.useEffect(() => {
-    fetchProfilesRequest();
-  }, []);
+    fetchProfilesRequest(page);
+  }, [page]);
 
   if (profiles.error) {
     return <div className={styles.profiles}>profiles.error</div>;
@@ -26,8 +28,9 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
       <div className={styles['profiles-row']}>
         {profiles.loading && (
           <>
-            {[...Array(20)].map((_) => (
-              <div key={_} className={styles['profiles-col']}>
+            {[...Array(20)].map((_, idx) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <div key={idx} className={styles['profiles-col']}>
                 <ProfilePlaceholder />
               </div>
             ))}
@@ -52,6 +55,9 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
           </>
         )}
       </div>
+      <button type="button" onClick={setPage}>
+        Page 2
+      </button>
     </div>
   );
 };
