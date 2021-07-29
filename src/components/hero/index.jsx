@@ -8,10 +8,9 @@ const Hero = () => {
   const infoEl = React.useRef(null);
 
   React.useEffect(() => {
-    const contentHeight = contEl.current.offsetHeight;
-
     const parallaxEffect = () => {
       const scrollTop = window.scrollY;
+      const contentHeight = contEl.current.offsetHeight;
       if (contentHeight >= scrollTop) {
         contEl.current.style.transform = `translateY(-${scrollTop / 5}px)`;
         infoEl.current.style.transform = `translateY(-${scrollTop / 10}px)`;
