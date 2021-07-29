@@ -32,6 +32,7 @@ module.exports = {
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     'import/no-named-as-default': 0,
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/prefer-default-export': 0,
     'no-underscore-dangle': 0,
   },
   settings: {
