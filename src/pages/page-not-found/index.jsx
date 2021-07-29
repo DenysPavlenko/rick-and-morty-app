@@ -11,14 +11,9 @@ const PageNotFound = () => {
       <div className={styles.container}>
         <span className={styles.title}>404</span>
         <Typography component="p" className={styles.text}>
-          The Page you are looking for could not be found. <br />
+          The Page you are looking for could not be found.
         </Typography>
-        <Button
-          onClick={() => {
-            history.push('/');
-          }}
-          variant="primary-fixed"
-        >
+        <Button onClick={() => history.push('/')} variant="primary-fixed">
           Go home
         </Button>
       </div>
