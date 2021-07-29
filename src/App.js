@@ -7,17 +7,19 @@ import PageNotFound from 'pages/page-not-found';
 import { ThemeProvider } from 'context/theme-context';
 
 const App = () => (
-  <ThemeProvider>
-    <Switch>
-      <Route exact path="/profiles/:id">
-        <ProfilesPage />
-      </Route>
-      <Route exact path="/404">
-        <PageNotFound />
-      </Route>
-      <Redirect to="/profiles/1" />
-    </Switch>
-  </ThemeProvider>
+  <div className="app">
+    <ThemeProvider>
+      <Switch>
+        <Route exact path="/profiles/:id">
+          <ProfilesPage />
+        </Route>
+        <Route exact path="/404">
+          <PageNotFound />
+        </Route>
+        <Redirect to="/profiles/1" />
+      </Switch>
+    </ThemeProvider>
+  </div>
 );
 
 export default App;
