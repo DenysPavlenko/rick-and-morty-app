@@ -21,50 +21,52 @@ const Profile = ({
   origin,
   location,
   episodesNum,
-}) => {
-  const StatusIcon = () => {
-    switch (status.toLowerCase()) {
-      case 'alive':
-        return <HeartbeatIcon />;
-      case 'dead':
-        return <DeadIcon />;
-      default:
-        return <UnknownIcon />;
-    }
-  };
-
-  return (
-    <Paper className={styles.profile}>
-      <div
-        className={styles['profile-image']}
-        style={{ backgroundImage: `url(${image})` }}
-      />
-      <div className={styles['profile-info']}>
-        <Typography component="h4" className={styles['profile-name']}>
-          {name}
-        </Typography>
-        <div className={styles['profile-with-icon']}>
-          <StatusIcon />
-          <Typography component="h6">
-            {status} - {species} - {gender}
-          </Typography>
-        </div>
-        <div className={styles['profile-center']}>
-          <div className={styles['profile-with-icon']}>
-            <HomeIcon />
-            <Typography component="h6">{origin.name}</Typography>
-          </div>
-          <div className={styles['profile-with-icon']}>
-            <PinIcon />
-            <Typography component="h6">{location.name}</Typography>
-          </div>
-        </div>
-        <Typography component="h6" className={styles['profile-episode']}>
-          Was seen in {episodesNum} {`episode${episodesNum === 1 ? '' : 's'}`}
+}) => (
+  <Paper className={styles.profile}>
+    <div
+      className={styles['profile-image']}
+      style={{ backgroundImage: `url(${image})` }}
+    />
+    <div className={styles['profile-info']}>
+      <Typography component="h4" className={styles['profile-name']}>
+        {name}
+      </Typography>
+      <div className={styles['profile-with-icon']}>
+        <StatusIcon status={status} />
+        <Typography component="h6">
+          {status} - {species} - {gender}
         </Typography>
       </div>
-    </Paper>
-  );
+      <div className={styles['profile-center']}>
+        <div className={styles['profile-with-icon']}>
+          <HomeIcon />
+          <Typography component="h6">{origin.name}</Typography>
+        </div>
+        <div className={styles['profile-with-icon']}>
+          <PinIcon />
+          <Typography component="h6">{location.name}</Typography>
+        </div>
+      </div>
+      <Typography component="h6" className={styles['profile-episode']}>
+        Was seen in {episodesNum} {`episode${episodesNum === 1 ? '' : 's'}`}
+      </Typography>
+    </div>
+  </Paper>
+);
+
+export const StatusIcon = ({ status }) => {
+  switch (status.toLowerCase()) {
+    case 'alive':
+      return <HeartbeatIcon />;
+    case 'dead':
+      return <DeadIcon />;
+    default:
+      return <UnknownIcon />;
+  }
+};
+
+StatusIcon.propTypes = {
+  status: PropTypes.string.isRequired,
 };
 
 Profile.propTypes = {
@@ -75,11 +77,9 @@ Profile.propTypes = {
   species: PropTypes.string.isRequired,
   location: PropTypes.shape({
     name: PropTypes.string,
-    url: PropTypes.string,
   }).isRequired,
   origin: PropTypes.shape({
     name: PropTypes.string,
-    url: PropTypes.string,
   }).isRequired,
   episodesNum: PropTypes.number.isRequired,
 };
