@@ -29,14 +29,14 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
     if (id && typeof id === 'number') {
       setPage(id);
     } else {
-      history.push('/404');
+      setPage(1);
     }
   }, []);
 
   React.useEffect(() => {
     fetchProfilesRequest(page);
     // Scroll to top on page change
-    if (!profiles.loading) {
+    if (!profiles.loading && profilesEl.current) {
       const rect = profilesEl.current.getBoundingClientRect();
       window.scrollTo({
         top: rect.top + window.scrollY,
