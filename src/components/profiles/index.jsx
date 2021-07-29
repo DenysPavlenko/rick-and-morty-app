@@ -37,8 +37,9 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
     fetchProfilesRequest(page);
     // Scroll to top on page change
     if (!profiles.loading) {
+      const rect = profilesEl.current.getBoundingClientRect();
       window.scrollTo({
-        top: profilesEl.current.offsetTop,
+        top: rect.top + window.scrollY,
         behavior: 'smooth',
       });
     }
