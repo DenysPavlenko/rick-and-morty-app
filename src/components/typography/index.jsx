@@ -6,21 +6,17 @@ import classNames from 'classnames';
 import './index.sass';
 
 const Typography = React.forwardRef(
-  (
-    { children, component, align, variant, className, altFont, ...otherProps },
-    ref
-  ) => {
+  ({ children, component, align, variant, className, ...otherProps }, ref) => {
     const classes = classNames({
       [variant]: variant,
       [`typography-${align}`]: align,
-      'font-creepster': altFont,
       [className]: className,
     });
 
     const Tag = component;
 
     return (
-      <Tag className={classes || null} {...otherProps} ref={ref}>
+      <Tag className={classes} {...otherProps} ref={ref}>
         {children}
       </Tag>
     );
@@ -32,7 +28,6 @@ Typography.defaultProps = {
   variant: '',
   align: '',
   className: '',
-  altFont: false,
 };
 
 Typography.propTypes = {
@@ -41,7 +36,6 @@ Typography.propTypes = {
   align: PropTypes.string,
   variant: PropTypes.string,
   className: PropTypes.string,
-  altFont: PropTypes.bool,
 };
 
 export default Typography;
