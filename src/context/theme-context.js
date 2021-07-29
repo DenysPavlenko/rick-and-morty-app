@@ -8,6 +8,7 @@ const ThemeProvider = (props) => {
 
   React.useEffect(() => {
     const isDark = localStorage.getItem('isDark') === 'true';
+    /* istanbul ignore else */
     if (isDark) {
       document.querySelector('body').classList.add('dark');
     }

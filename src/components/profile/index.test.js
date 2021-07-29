@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { shallow } from 'enzyme';
-import { checkProps } from 'test-utils';
+import { checkProps, findByTestAtt } from 'test-utils';
 import Profile, { StatusIcon } from './index';
 
 const dummyProps = {
@@ -25,17 +25,17 @@ const statusIconSetup = (props = {}) => shallow(<StatusIcon {...props} />);
 describe('Profile component', () => {
   test('renders without error', () => {
     const wrapper = setup({ ...dummyProps });
-    const component = wrapper.find('.profile');
+    const component = findByTestAtt(wrapper, 'profile');
     expect(component.length).toBe(1);
   });
   test('adds "s" to the "episode" if there is more then 1 episode', () => {
     const wrapper = setup({ ...dummyProps, episodesNum: 41 });
-    const component = wrapper.find('.profile-episode');
+    const component = findByTestAtt(wrapper, 'profile-episode');
     expect(component.text()).toBe('Was seen in 41 episodes');
   });
   test('doesn"t add "s" to the "episode" if there is 1 episode', () => {
     const wrapper = setup({ ...dummyProps, episodesNum: 1 });
-    const component = wrapper.find('.profile-episode');
+    const component = findByTestAtt(wrapper, 'profile-episode');
     expect(component.text()).toBe('Was seen in 1 episode');
   });
   test('does not throw warning with expected props', () => {

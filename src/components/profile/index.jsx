@@ -22,7 +22,7 @@ const Profile = ({
   location,
   episodesNum,
 }) => (
-  <Paper className={styles.profile}>
+  <Paper className={styles.profile} data-test="profile">
     <div
       className={styles['profile-image']}
       style={{ backgroundImage: `url(${image})` }}
@@ -47,7 +47,11 @@ const Profile = ({
           <Typography component="h6">{location.name}</Typography>
         </div>
       </div>
-      <Typography component="h6" className={styles['profile-episode']}>
+      <Typography
+        component="h6"
+        className={styles['profile-episode']}
+        data-test="profile-episode"
+      >
         Was seen in {episodesNum} {`episode${episodesNum === 1 ? '' : 's'}`}
       </Typography>
     </div>

@@ -6,7 +6,7 @@ import styles from './placeholder.module.sass';
 
 function ProfilePlaceholder() {
   return (
-    <Paper className={styles.profile}>
+    <Paper className={styles.profile} data-test="profile-placeholder">
       <div className={styles['profile-image']} />
       <div className={styles['profile-info']}>
         <div className={styles['profile-name']} />

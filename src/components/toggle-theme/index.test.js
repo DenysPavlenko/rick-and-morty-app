@@ -3,6 +3,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { ThemeProvider } from 'context/theme-context';
+import { findByTestAtt } from 'test-utils';
 import ToggleTheme from './index';
 
 const setup = ({ dark }) => {
@@ -17,17 +18,17 @@ const setup = ({ dark }) => {
 describe('ToggleTheme component', () => {
   test('renders without error', () => {
     const wrapper = setup({});
-    const component = wrapper.find('.theme-switch');
+    const component = findByTestAtt(wrapper, 'theme-switch');
     expect(component.length).toBe(1);
   });
   test('switches theme to dark', () => {
     const wrapper = setup({ dark: true });
-    const component = wrapper.find('.theme-switch-input');
+    const component = findByTestAtt(wrapper, 'theme-switch-input');
     expect(component.props().checked).toBe(true);
   });
   test('switches theme to light', () => {
     const wrapper = setup({ dark: false });
-    const component = wrapper.find('.theme-switch-input');
+    const component = findByTestAtt(wrapper, 'theme-switch-input');
     expect(component.props().checked).toBe(false);
   });
 });

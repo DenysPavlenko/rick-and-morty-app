@@ -6,7 +6,7 @@ import Typography from 'components/typography';
 import styles from './index.module.sass';
 
 export const PageNotFound = ({ history }) => (
-  <div className={styles.wrapper}>
+  <div className={styles.wrapper} data-test="page-not-found">
     <div className={styles.container}>
       <span className={styles.title}>404</span>
       <Typography component="p" className={styles.text}>
@@ -16,6 +16,7 @@ export const PageNotFound = ({ history }) => (
         onClick={() => history.push('/')}
         variant="primary-fixed"
         className={styles.button}
+        data-test="page-not-found-button"
       >
         Go home
       </Button>

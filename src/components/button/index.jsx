@@ -23,7 +23,13 @@ const Button = ({
   const Tag = href ? 'a' : 'button';
 
   return (
-    <Tag className={classes} type={type} onClick={onClick} disabled={disabled}>
+    <Tag
+      className={classes}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      data-test="button"
+    >
       {children}
     </Tag>
   );

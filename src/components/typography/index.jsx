@@ -7,16 +7,16 @@ import './index.sass';
 
 const Typography = React.forwardRef(
   ({ children, component, align, variant, className, ...otherProps }, ref) => {
-    const classes = classNames({
-      [variant]: variant,
-      [`typography-${align}`]: align,
-      [className]: className,
-    });
+    const classes = classNames(
+      variant,
+      align && [`typography-${align}`],
+      className
+    );
 
     const Tag = component;
 
     return (
-      <Tag className={classes} {...otherProps} ref={ref}>
+      <Tag className={classes} {...otherProps} ref={ref} data-test="typography">
         {children}
       </Tag>
     );
