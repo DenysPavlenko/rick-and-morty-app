@@ -6,9 +6,9 @@ import {
   fetchProfilesFailure,
 } from './actions';
 
-const rnmService = new RnmService();
+export const rnmService = new RnmService();
 
-function* fetchProfilesDataWorker({ page }) {
+export function* fetchProfilesDataWorker({ page }) {
   try {
     const data = yield call(rnmService.getProfilesPage, page);
     yield put(fetchProfilesSuccess(data));
@@ -17,8 +17,6 @@ function* fetchProfilesDataWorker({ page }) {
   }
 }
 
-function* fetchContactListData() {
+export function* fetchProfilesData() {
   yield takeLatest(fetchProfilesRequest().type, fetchProfilesDataWorker);
 }
-
-export default fetchContactListData;

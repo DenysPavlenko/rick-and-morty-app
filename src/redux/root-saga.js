@@ -1,9 +1,9 @@
 import { all, call } from 'redux-saga/effects';
 // Sagas
-import fetchContactListData from 'redux/profiles/sagas';
+import { fetchProfilesData } from 'redux/profiles/sagas';
 
 function* rootSaga() {
-  yield all([call(fetchContactListData)]);
+  yield all([call(fetchProfilesData)]);
 }
 
 export default rootSaga;
