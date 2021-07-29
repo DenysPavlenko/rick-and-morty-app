@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
-import { Redirect, useHistory, useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 // Redux
 import { fetchProfilesRequest } from 'redux/profiles/actions';
 import selectProfiles from 'redux/profiles/selectors';
@@ -31,7 +31,7 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
     } else {
       setPage(1);
     }
-  }, []);
+  }, [match]);
 
   React.useEffect(() => {
     fetchProfilesRequest(page);
@@ -53,10 +53,17 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
 
   // Handle errors
   if (profiles.error) {
-    if (profiles.error === '404') {
-      return <Redirect to="/404" />;
-    }
-    return <ErrorIndicator retry={() => fetchProfilesRequest(page)} />;
+    return (
+      <ErrorIndicator
+        title="Oops..."
+        message={`It seems that page ${page} doesn't exist...`}
+        btnText="Go back"
+        retry={() => {
+          history.push('/1');
+          fetchProfilesRequest(1);
+        }}
+      />
+    );
   }
 
   return (
@@ -96,7 +103,7 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
           page={page}
           pages={pages}
           setPage={(p) => {
-            history.push(`/profiles/${p}`);
+            history.push(`/${p}`);
             setPage(p);
           }}
         />

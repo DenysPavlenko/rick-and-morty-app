@@ -8,11 +8,13 @@ import { ReactComponent as Warning } from 'assets/images/icons/warning.svg';
 // Styles
 import styles from './index.module.sass';
 
-const ErrorIndicator = ({ retry }) => (
+const ErrorIndicator = ({ title, message, btnText, retry }) => (
   <div className={styles['error-indicator']} data-test="error-indicator">
     <Warning className={styles['error-indicator-icon']} />
-    <Typography component="h4">BOOM!</Typography>
-    <Typography component="p">Something has gone terribly wrong</Typography>
+    <Typography component="h4" style={{ marginBottom: '10px' }}>
+      {title}
+    </Typography>
+    <Typography component="p">{message}</Typography>
     {retry && (
       <Button
         type="button"
@@ -21,7 +23,7 @@ const ErrorIndicator = ({ retry }) => (
         className={styles['error-indicator-button']}
         data-test="error-indicator-button"
       >
-        Retry
+        {btnText}
       </Button>
     )}
   </div>
@@ -29,10 +31,16 @@ const ErrorIndicator = ({ retry }) => (
 
 ErrorIndicator.defaultProps = {
   retry: null,
+  title: '',
+  message: '',
+  btnText: 'Retry',
 };
 
 ErrorIndicator.propTypes = {
   retry: PropTypes.func,
+  title: PropTypes.string,
+  message: PropTypes.string,
+  btnText: PropTypes.string,
 };
 
 export default ErrorIndicator;

@@ -6,6 +6,9 @@ import ErrorIndicator from './index';
 
 const dummyProps = {
   retry: () => {},
+  title: '',
+  message: '',
+  btnText: 'Retry',
 };
 
 const setup = (props = {}) => shallow(<ErrorIndicator {...props} />);
