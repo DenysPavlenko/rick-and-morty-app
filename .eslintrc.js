@@ -31,6 +31,7 @@ module.exports = {
     'react/state-in-constructor': 0,
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     'import/no-named-as-default': 0,
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'no-underscore-dangle': 0,
   },
   settings: {
