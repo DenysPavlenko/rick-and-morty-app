@@ -9,8 +9,8 @@ export const PageNotFound = ({ history }) => (
   <div className={styles.wrapper} data-test="page-not-found">
     <div className={styles.container}>
       <span className={styles.title}>404</span>
-      <Typography component="p" className={styles.text}>
-        The Page you are looking for could not be found.
+      <Typography className={styles.text}>
+        The Page you are looking for could not be found
       </Typography>
       <Button
         onClick={() => history.push('/')}
