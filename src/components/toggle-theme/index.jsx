@@ -1,14 +1,18 @@
 import React from 'react';
 import cn from 'classnames';
+import { useTheme } from 'context/theme-context';
 import styles from './index.module.sass';
 
-// eslint-disable-next-line arrow-body-style
 const ToggleTheme = () => {
+  const { dark, toggleTheme } = useTheme();
+
   return (
     <div className={styles['theme-switch']}>
       <label htmlFor="theme-btn">
         <input
           type="checkbox"
+          onChange={toggleTheme}
+          checked={dark}
           id="theme-btn"
           className={styles['theme-switch-input']}
         />

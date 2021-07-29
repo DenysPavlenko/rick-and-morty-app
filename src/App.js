@@ -1,11 +1,13 @@
 import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
-// Components
+// Pages
 import ProfilesPage from 'pages/profiles-page';
 import PageNotFound from 'pages/404';
+// Context
+import { ThemeProvider } from 'context/theme-context';
 
 const App = () => (
-  <div>
+  <ThemeProvider>
     <Switch>
       <Route exact path="/profiles/:id">
         <ProfilesPage />
@@ -15,7 +17,7 @@ const App = () => (
       </Route>
       <Redirect to="/profiles/1" />
     </Switch>
-  </div>
+  </ThemeProvider>
 );
 
 export default App;
