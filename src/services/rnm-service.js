@@ -3,6 +3,7 @@ export default class RnmService {
 
   getResource = async (params) => {
     const res = await fetch(`${this._apiBase}${params}`);
+    /* istanbul ignore else */
     if (!res.ok) {
       throw new Error(res.status);
     }
