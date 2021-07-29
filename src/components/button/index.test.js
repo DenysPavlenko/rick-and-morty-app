@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import { checkProps } from 'test-utils';
 import Button from './index';
 
-const defaultProps = {
+const dummyProps = {
   children: 'Read more',
   variant: 'primary',
   disabled: false,
@@ -15,24 +15,21 @@ const defaultProps = {
   onClick: () => {},
 };
 
-const setup = (props = {}) => {
-  const setupProps = { ...defaultProps, ...props };
-  return shallow(<Button {...setupProps} />);
-};
+const setup = (props = {}) => shallow(<Button {...props} />);
 
 describe('Button component', () => {
   test('renders without error', () => {
-    const wrapper = setup();
+    const wrapper = setup({ ...dummyProps });
     const component = wrapper.find('.button');
     expect(component.length).toBe(1);
   });
   test('should render <a></a> tag with href prop', () => {
-    const wrapper = setup({ href: 'https://example.com' });
+    const wrapper = setup({ ...dummyProps, href: 'https://example.com' });
     const component = wrapper.find('.button');
     expect(component.first().type()).toEqual('a');
   });
   test('should add disabled class', () => {
-    const wrapper = setup({ disabled: true });
+    const wrapper = setup({ ...dummyProps, disabled: true });
     const component = wrapper.find('button.button-disabled');
     expect(component.length).toBe(1);
   });
@@ -41,7 +38,7 @@ describe('Button component', () => {
     expect(onClick()).toBeUndefined();
   });
   test('does not throw warning with expected props', () => {
-    const expectedProps = { ...defaultProps };
+    const expectedProps = { ...dummyProps };
     const propsError = checkProps(Button, expectedProps);
     expect(propsError).toBeUndefined();
   });

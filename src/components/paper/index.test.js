@@ -4,24 +4,21 @@ import { shallow } from 'enzyme';
 import { checkProps } from 'test-utils';
 import Paper from './index';
 
-const defaultProps = {
+const dummyProps = {
   children: <div />,
   className: '',
 };
 
-const setup = (props = {}) => {
-  const setupProps = { ...defaultProps, ...props };
-  return shallow(<Paper {...setupProps} />);
-};
+const setup = (props = {}) => shallow(<Paper {...props} />);
 
 describe('Paper component', () => {
   test('renders without error', () => {
-    const wrapper = setup();
+    const wrapper = setup({ ...dummyProps });
     const component = wrapper.find('.paper');
     expect(component.length).toBe(1);
   });
   test('does not throw warning with expected props', () => {
-    const expectedProps = { ...defaultProps };
+    const expectedProps = { ...dummyProps };
     const propsError = checkProps(Paper, expectedProps);
     expect(propsError).toBeUndefined();
   });
