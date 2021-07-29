@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 // Pages
 import ProfilesPage from 'pages/profiles-page';
-import PageNotFound from 'pages/404';
+import PageNotFound from 'pages/page-not-found';
 // Context
 import { ThemeProvider } from 'context/theme-context';
 
