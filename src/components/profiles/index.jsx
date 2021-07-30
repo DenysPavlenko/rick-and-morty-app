@@ -28,12 +28,11 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
     const id = +match.params.id;
     if (id && typeof id === 'number') {
       setPage(id);
-    } else {
-      setPage(1);
     }
   }, [match]);
 
   React.useEffect(() => {
+    // Fetch profiles data
     fetchProfilesRequest(page);
     // Scroll to top on page change
     if (!profiles.loading && profilesEl.current) {
@@ -46,6 +45,7 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
   }, [page]);
 
   React.useEffect(() => {
+    // Set total number of pages
     if (profiles.data) {
       setPages(profiles.data.pages);
     }
