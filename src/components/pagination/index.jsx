@@ -48,7 +48,7 @@ const Pagination = ({ className, pages, page, setPage }) => {
   const classes = cn(styles.pagination, className);
 
   return (
-    <nav className={classes}>
+    <nav className={classes} data-test="pagination">
       <ul className={styles['pagination-list']}>
         <li className={styles['pagination-item']}>
           <button
@@ -59,6 +59,7 @@ const Pagination = ({ className, pages, page, setPage }) => {
             )}
             onClick={() => handleArrowClick(-1, 1)}
             disabled={page === 1}
+            data-test="pagination-chevron-left"
           >
             <ChevronLeft className={styles['pagination-chevron']} />
           </button>
@@ -74,6 +75,7 @@ const Pagination = ({ className, pages, page, setPage }) => {
                   styles['pagination-button-disabled']
                 )}
                 disabled
+                data-test="pagination-dots"
               >
                 {p}
               </button>
@@ -86,6 +88,7 @@ const Pagination = ({ className, pages, page, setPage }) => {
                 )}
                 disabled={page === p && styles.active}
                 onClick={() => changePage(p)}
+                data-test="pagination-button"
               >
                 {p}
               </button>
@@ -101,6 +104,7 @@ const Pagination = ({ className, pages, page, setPage }) => {
             )}
             disabled={page === pages}
             onClick={() => handleArrowClick(1, pages)}
+            data-test="pagination-chevron-right"
           >
             <ChevronRight className={styles['pagination-chevron']} />
           </button>
