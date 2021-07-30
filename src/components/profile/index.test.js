@@ -10,12 +10,8 @@ const dummyProps = {
   status: 'alive',
   name: 'morty',
   species: 'human',
-  location: {
-    name: 'Earh',
-  },
-  origin: {
-    name: 'Earth',
-  },
+  location: 'Earh',
+  origin: 'Earth',
   episodesNum: 1,
 };
 
