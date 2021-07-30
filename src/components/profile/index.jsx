@@ -40,11 +40,11 @@ const Profile = ({
       <div className={styles['profile-center']}>
         <div className={styles['profile-with-icon']}>
           <HomeIcon />
-          <Typography component="h6">{origin.name}</Typography>
+          <Typography component="h6">{origin}</Typography>
         </div>
         <div className={styles['profile-with-icon']}>
           <PinIcon />
-          <Typography component="h6">{location.name}</Typography>
+          <Typography component="h6">{location}</Typography>
         </div>
       </div>
       <Typography
@@ -79,12 +79,8 @@ Profile.propTypes = {
   status: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   species: PropTypes.string.isRequired,
-  location: PropTypes.shape({
-    name: PropTypes.string,
-  }).isRequired,
-  origin: PropTypes.shape({
-    name: PropTypes.string,
-  }).isRequired,
+  location: PropTypes.string.isRequired,
+  origin: PropTypes.string.isRequired,
   episodesNum: PropTypes.number.isRequired,
 };
 
