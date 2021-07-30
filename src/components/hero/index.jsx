@@ -11,6 +11,7 @@ const Hero = () => {
     const parallaxEffect = () => {
       const scrollTop = window.scrollY;
       const contentHeight = contEl.current.offsetHeight;
+      /* istanbul ignore else */
       if (contentHeight >= scrollTop) {
         contEl.current.style.transform = `translateY(-${scrollTop / 5}px)`;
         infoEl.current.style.transform = `translateY(-${scrollTop / 10}px)`;
@@ -22,7 +23,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className={styles.hero}>
+    <div className={styles.hero} data-test="hero">
       <div className={styles['hero-content']} ref={contEl}>
         <div className={styles['hero-image']} />
         <div className={styles['hero-info']} ref={infoEl}>
