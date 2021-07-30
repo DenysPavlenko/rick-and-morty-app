@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { mount } from 'enzyme';
-import { findByTestAtt } from 'test-utils';
+import { shallow } from 'enzyme';
+import { checkProps, findByTestAtt } from 'test-utils';
 import { Profiles } from './index';
 
 const dummyProfiles = [
@@ -30,25 +30,26 @@ const dummyProps = {
   },
 };
 
-const setup = (props = {}) => mount(<Profiles {...props} />);
+const setup = (props = {}) => shallow(<Profiles {...props} />);
 
 const mockScrollTo = jest.fn();
 window.scrollTo = mockScrollTo;
 
+// Mock react router methods
 const mockPush = jest.fn();
 jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
   useHistory: () => ({
     push: mockPush,
   }),
   useRouteMatch: () => ({
-    params: { id: '1' },
+    params: { id: '2' },
   }),
 }));
 
-describe('Profiles component', () => {
+describe('Profiles component render', () => {
   afterEach(() => {
-    mockPush.mockClear();
-    mockScrollTo.mockClear();
+    jest.resetAllMocks();
   });
   test('renders without error', () => {
     const wrapper = setup({ ...dummyProps });
@@ -70,10 +71,10 @@ describe('Profiles component', () => {
       fetchProfilesRequest: mockFetchProfilesRequest,
       profiles: { ...dummyProps.profiles, error: 'error' },
     });
-    const button = wrapper.find('ErrorIndicator Button');
+    const button = wrapper.find('ErrorIndicator').dive().find('Button');
     button.simulate('click');
     expect(mockPush.mock.calls.length).toBe(1);
-    expect(mockFetchProfilesRequest.mock.calls.length).toBe(2);
+    expect(mockFetchProfilesRequest.mock.calls.length).toBe(1);
   });
   test('Renders profiles placeholders on loading', () => {
     const wrapper = setup({
@@ -97,10 +98,69 @@ describe('Profiles component', () => {
     const component = wrapper.find('Profile');
     expect(component.length).toBe(1);
   });
+  test('does not throw warning with expected props', () => {
+    const expectedProps = { ...dummyProps };
+    const propsError = checkProps(Profiles, expectedProps);
+    expect(propsError).toBeUndefined();
+  });
+});
+
+describe('Profiles component routing', () => {
+  let useEffect;
+  const mockUseEffect = () => {
+    useEffect.mockImplementationOnce((f) => f());
+  };
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
   test('Pushes page number to the history on page click', () => {
     const wrapper = setup({ ...dummyProps });
-    const button = wrapper.find('Pagination .pagination-button').at(2);
+    const pagination = wrapper.find('Pagination').dive();
+    const button = pagination.find('.pagination-button').at(1);
     button.simulate('click');
     expect(mockPush.mock.calls.length).toBe(1);
+  });
+  test('Changes page number which gets from the location match', () => {
+    useEffect = jest.spyOn(React, 'useEffect');
+    mockUseEffect();
+    const wrapper = setup({ ...dummyProps });
+    const pagination = wrapper.find('Pagination');
+    expect(pagination.props().page).toBe(2);
+  });
+  test('Fetches profiles data', () => {
+    const mockFetchProfilesRequest = jest.fn();
+    useEffect = jest.spyOn(React, 'useEffect');
+    mockUseEffect();
+    mockUseEffect();
+    setup({
+      ...dummyProps,
+      fetchProfilesRequest: mockFetchProfilesRequest,
+    });
+    expect(mockFetchProfilesRequest.mock.calls.length).toBe(1);
+  });
+  test('Scrolls to top on page change', () => {
+    useEffect = jest.spyOn(React, 'useEffect');
+    const mockProfilesRef = {
+      current: {
+        getBoundingClientRect: () => ({ top: 10 }),
+      },
+    };
+    React.useRef = () => mockProfilesRef;
+    mockUseEffect();
+    mockUseEffect();
+    setup({
+      ...dummyProps,
+      profiles: { ...dummyProps.profiles, loading: false },
+    });
+    expect(mockScrollTo.mock.calls.length).toBe(1);
+  });
+  test('Sets total number of pages', () => {
+    useEffect = jest.spyOn(React, 'useEffect');
+    mockUseEffect();
+    mockUseEffect();
+    mockUseEffect();
+    const wrapper = setup({ ...dummyProps });
+    const pagination = wrapper.find('Pagination');
+    expect(pagination.props().pages).toBe(2);
   });
 });
