@@ -15,7 +15,7 @@ import ErrorIndicator from 'components/error-indicator';
 // Styles
 import styles from './index.module.sass';
 
-const Profiles = ({ fetchProfilesRequest, profiles }) => {
+export const Profiles = ({ fetchProfilesRequest, profiles }) => {
   const [page, setPage] = React.useState(1);
   const [pages, setPages] = React.useState(0);
   const profilesEl = React.useRef(null);
@@ -26,6 +26,7 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
   // Set page number from the match
   React.useEffect(() => {
     const id = +match.params.id;
+    /* istanbul ignore else */
     if (id && typeof id === 'number') {
       setPage(id);
     }
@@ -34,6 +35,7 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
   React.useEffect(() => {
     // Fetch profiles data
     fetchProfilesRequest(page);
+    /* istanbul ignore else */
     // Scroll to top on page change
     if (!profiles.loading && profilesEl.current) {
       const rect = profilesEl.current.getBoundingClientRect();
@@ -44,15 +46,17 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
     }
   }, [page]);
 
+  // Set total number of pages
   React.useEffect(() => {
-    // Set total number of pages
+    /* istanbul ignore else */
     if (profiles.data) {
       setPages(profiles.data.pages);
     }
   }, [profiles]);
 
-  // Handle errors
+  /* istanbul igore else */
   if (profiles.error) {
+    // Handle error
     return (
       <ErrorIndicator
         title="Oops..."
@@ -67,7 +71,7 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
   }
 
   return (
-    <div className={styles.profiles} ref={profilesEl}>
+    <div className={styles.profiles} ref={profilesEl} data-test="profiles">
       <div className={styles['profiles-row']}>
         {profiles.loading && (
           <>
@@ -89,8 +93,8 @@ const Profiles = ({ fetchProfilesRequest, profiles }) => {
                   status={profile.status}
                   species={profile.species}
                   gender={profile.gender}
-                  origin={profile.origin}
-                  location={profile.location}
+                  origin={profile.origin.name}
+                  location={profile.location.name}
                   episodesNum={profile.episode.length}
                 />
               </div>
