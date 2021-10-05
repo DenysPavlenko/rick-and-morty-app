@@ -1,12 +1,10 @@
 /* eslint-disable no-shadow */
 import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import PropTypes from 'prop-types';
-import { useHistory, useRouteMatch } from 'react-router-dom';
-// Redux
-import { fetchProfilesRequest } from 'redux/profiles/actions';
-import selectProfiles from 'redux/profiles/selectors';
+import { useHistory, useParams } from 'react-router-dom';
+// Hooks
+import useHttp from 'hooks/use-http';
+// Services
+import RnmService from 'services/rnm-service';
 // Components
 import Profile from 'components/profile';
 import ProfilePlaceholder from 'components/profile/placeholder';
@@ -15,46 +13,38 @@ import ErrorIndicator from 'components/error-indicator';
 // Styles
 import styles from './index.module.sass';
 
-export const Profiles = ({ fetchProfilesRequest, profiles }) => {
-  const match = useRouteMatch();
-  const history = useHistory();
-  const page = Number(match.params.id) || 1;
-  const [pages, setPages] = React.useState(0);
-  const profilesEl = React.useRef(null);
+const { getProfilesPage } = new RnmService();
 
+export const Profiles = () => {
+  const history = useHistory();
+  const params = useParams();
+  const page = Number(params.id) || 1;
+  const profilesEl = React.useRef(null);
+  const { fetchData, loading, data, error } = useHttp(getProfilesPage);
+
+  // Fetch profiles data on page change
   React.useEffect(() => {
-    // Fetch profiles data
-    fetchProfilesRequest(page);
-    /* istanbul ignore else */
-    // Scroll to top on page change
-    if (!profiles.loading && profilesEl.current) {
-      const rect = profilesEl.current.getBoundingClientRect();
-      window.scrollTo({
-        top: rect.top + window.scrollY,
-        behavior: 'smooth',
-      });
-    }
+    fetchData(page);
   }, [page]);
 
-  // Set total number of pages
-  React.useEffect(() => {
-    /* istanbul ignore else */
-    if (profiles.data) {
-      setPages(profiles.data.pages);
-    }
-  }, [profiles]);
+  const scrollToTop = () => {
+    const rect = profilesEl.current.getBoundingClientRect();
+    window.scrollTo({
+      top: rect.top + window.scrollY,
+      behavior: 'smooth',
+    });
+  };
 
   /* istanbul igore else */
-  if (profiles.error) {
+  if (error) {
     // Handle error
     return (
       <ErrorIndicator
         title="Oops..."
-        message={`It seems that page ${page} doesn't exist...`}
+        message="It seems that this page doesn't exist..."
         btnText="Go back"
         retry={() => {
           history.push('/1');
-          fetchProfilesRequest(1);
         }}
       />
     );
@@ -63,7 +53,7 @@ export const Profiles = ({ fetchProfilesRequest, profiles }) => {
   return (
     <div className={styles.profiles} ref={profilesEl} data-test="profiles">
       <div className={styles['profiles-row']}>
-        {profiles.loading && (
+        {loading && (
           <>
             {[...Array(20)].map((_, idx) => (
               // eslint-disable-next-line react/no-array-index-key
@@ -73,9 +63,9 @@ export const Profiles = ({ fetchProfilesRequest, profiles }) => {
             ))}
           </>
         )}
-        {profiles.data && (
+        {data && (
           <>
-            {profiles.data.profiles.map((profile) => (
+            {data.profiles.map((profile) => (
               <div key={profile.id} className={styles['profiles-col']}>
                 <Profile
                   image={profile.image}
@@ -95,9 +85,10 @@ export const Profiles = ({ fetchProfilesRequest, profiles }) => {
       <div className={styles['profiles-pagination']}>
         <Pagination
           page={page}
-          pages={pages}
+          pages={data?.pages || 0}
           setPage={(p) => {
             history.push(`/${p}`);
+            scrollToTop();
           }}
         />
       </div>
@@ -105,24 +96,4 @@ export const Profiles = ({ fetchProfilesRequest, profiles }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  profiles: selectProfiles,
-});
-
-const mapDispatchToProps = {
-  fetchProfilesRequest,
-};
-
-Profiles.propTypes = {
-  fetchProfilesRequest: PropTypes.func.isRequired,
-  profiles: PropTypes.shape({
-    data: PropTypes.shape({
-      pages: PropTypes.number,
-      profiles: PropTypes.array,
-    }),
-    loading: PropTypes.bool,
-    error: PropTypes.string,
-  }).isRequired,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profiles);
+export default Profiles;
