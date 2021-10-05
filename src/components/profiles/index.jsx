@@ -16,21 +16,11 @@ import ErrorIndicator from 'components/error-indicator';
 import styles from './index.module.sass';
 
 export const Profiles = ({ fetchProfilesRequest, profiles }) => {
-  const [page, setPage] = React.useState(1);
+  const match = useRouteMatch();
+  const history = useHistory();
+  const page = Number(match.params.id) || 1;
   const [pages, setPages] = React.useState(0);
   const profilesEl = React.useRef(null);
-
-  const history = useHistory();
-  const match = useRouteMatch();
-
-  // Set page number from the match
-  React.useEffect(() => {
-    const id = +match.params.id;
-    /* istanbul ignore else */
-    if (id && typeof id === 'number') {
-      setPage(id);
-    }
-  }, [match]);
 
   React.useEffect(() => {
     // Fetch profiles data
@@ -108,7 +98,6 @@ export const Profiles = ({ fetchProfilesRequest, profiles }) => {
           pages={pages}
           setPage={(p) => {
             history.push(`/${p}`);
-            setPage(p);
           }}
         />
       </div>
